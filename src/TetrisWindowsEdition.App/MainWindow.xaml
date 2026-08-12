@@ -1,0 +1,176 @@
+<Window x:Class="TetrisWindowsEdition.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tetris Windows Edition"
+        Height="680" Width="920"
+        Background="{StaticResource BackgroundDark}"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="{StaticResource GameFont}">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16">
+            <Rectangle Width="10" Height="24" Fill="{StaticResource BrushI}" Margin="0,0,4,0"/>
+            <Rectangle Width="10" Height="24" Fill="{StaticResource BrushO}" Margin="0,0,4,0"/>
+            <Rectangle Width="10" Height="24" Fill="{StaticResource BrushT}" Margin="0,0,4,0"/>
+            <Rectangle Width="10" Height="24" Fill="{StaticResource BrushS}" Margin="0,0,12,0"/>
+            <TextBlock Text="TETRIS WINDOWS EDITION" FontSize="22" FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0">
+
+            <!-- PAINEL PRINCIPAL -->
+            <TabItem Header="Painel Principal">
+                <Grid Margin="0,16,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Background="{StaticResource PanelDark}" CornerRadius="4"
+                            BorderBrush="{StaticResource BorderDim}" BorderThickness="1" Padding="20" Margin="0,0,12,0">
+                        <StackPanel>
+                            <TextBlock Text="STATUS DA PERSONALIZAÇÃO" Style="{StaticResource SectionHeader}"/>
+                            <TextBlock x:Name="TxtCurrentTheme" Style="{StaticResource StatusRow}" Text="Tema atual: nenhum"/>
+                            <Separator Margin="0,10" Background="{StaticResource BorderDim}"/>
+                            <TextBlock x:Name="RowDesktop" Style="{StaticResource StatusRow}" Text="DESKTOP              —"/>
+                            <TextBlock x:Name="RowColors" Style="{StaticResource StatusRow}" Text="CORES                —"/>
+                            <TextBlock x:Name="RowCursors" Style="{StaticResource StatusRow}" Text="CURSORES             —"/>
+                            <TextBlock x:Name="RowSounds" Style="{StaticResource StatusRow}" Text="SONS                 —"/>
+                            <TextBlock x:Name="RowLockScreen" Style="{StaticResource StatusRow}" Text="TELA DE BLOQUEIO     —"/>
+                            <TextBlock x:Name="RowIcon" Style="{StaticResource StatusRow}" Text="ÍCONE DO APLICATIVO  —"/>
+                            <TextBlock x:Name="RowScreensaver" Style="{StaticResource StatusRow}" Text="PROTEÇÃO DE TELA     —"/>
+                            <TextBlock x:Name="RowOthers" Style="{StaticResource StatusRow}" Text="OUTROS               —"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Column="1">
+                        <Button x:Name="BtnApplyTheme" Content="APLICAR TEMA TETRIS" Style="{StaticResource PrimaryBlockButton}"
+                                Margin="0,0,0,8" Click="BtnApplyTheme_Click"/>
+                        <Button x:Name="BtnRestore" Content="RESTAURAR WINDOWS" Style="{StaticResource DangerBlockButton}"
+                                Margin="0,0,0,8" Click="BtnRestore_Click"/>
+                        <Button x:Name="BtnBackup" Content="CRIAR BACKUP" Style="{StaticResource BlockButton}"
+                                Margin="0,0,0,8" Click="BtnBackup_Click"/>
+                        <Button Content="PERSONALIZAR" Style="{StaticResource BlockButton}" Margin="0,0,0,8"
+                                Click="BtnGoPersonalize_Click"/>
+                        <Button Content="CONFIGURAÇÕES" Style="{StaticResource BlockButton}"
+                                Click="BtnGoSettings_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- PERSONALIZAR -->
+            <TabItem x:Name="TabPersonalize" Header="Personalizar">
+                <ScrollViewer Margin="0,16,0,0">
+                    <StackPanel>
+                        <TextBlock Text="ESQUEMA DE CORES" Style="{StaticResource SectionHeader}"/>
+                        <ComboBox x:Name="CmbColorScheme" Width="260" HorizontalAlignment="Left" Margin="0,0,0,16"/>
+
+                        <TextBlock Text="PAPEL DE PAREDE" Style="{StaticResource SectionHeader}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <Button Content="Escolher imagem..." Style="{StaticResource BlockButton}"
+                                    Click="BtnChooseWallpaper_Click" Margin="0,0,8,0"/>
+                            <TextBlock x:Name="TxtWallpaperPath" Style="{StaticResource StatusRow}"
+                                       VerticalAlignment="Center" Text="(usar wallpaper animado padrão)"/>
+                        </StackPanel>
+
+                        <TextBlock Text="CURSORES" Style="{StaticResource SectionHeader}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <Button Content="Aplicar cursores Tetris" Style="{StaticResource BlockButton}"
+                                    Click="BtnApplyCursors_Click" Margin="0,0,8,0"/>
+                            <Button Content="Restaurar padrão do Windows" Style="{StaticResource BlockButton}"
+                                    Click="BtnRestoreCursors_Click"/>
+                        </StackPanel>
+
+                        <TextBlock Text="SONS" Style="{StaticResource SectionHeader}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <Button Content="Aplicar sons Tetris" Style="{StaticResource BlockButton}"
+                                    Click="BtnApplySounds_Click" Margin="0,0,8,0"/>
+                            <Button Content="Silenciar" Style="{StaticResource BlockButton}"
+                                    Click="BtnSilenceSounds_Click"/>
+                        </StackPanel>
+
+                        <TextBlock Text="PROTEÇÃO DE TELA" Style="{StaticResource SectionHeader}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <Button Content="Ativar proteção Tetris" Style="{StaticResource BlockButton}"
+                                    Click="BtnEnableScreensaver_Click" Margin="0,0,8,0"/>
+                            <Button Content="Desativar" Style="{StaticResource BlockButton}"
+                                    Click="BtnDisableScreensaver_Click"/>
+                        </StackPanel>
+
+                        <TextBlock Text="TELA DE BLOQUEIO" Style="{StaticResource SectionHeader}"/>
+                        <TextBlock x:Name="TxtLockScreenInfo" Style="{StaticResource StatusRow}"
+                                   TextWrapping="Wrap" Margin="0,0,0,8"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <Button x:Name="BtnLockScreen" Content="Aplicar (requer administrador)"
+                                    Style="{StaticResource BlockButton}" Click="BtnLockScreen_Click"/>
+                        </StackPanel>
+
+                        <TextBlock Text="EXPORTAR TEMA" Style="{StaticResource SectionHeader}"/>
+                        <Button Content="Exportar tema Tetris (.theme)" Style="{StaticResource BlockButton}"
+                                HorizontalAlignment="Left" Click="BtnExportTheme_Click"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- CENTRAL DE SEGURANÇA -->
+            <TabItem Header="Central de Segurança">
+                <Grid Margin="0,16,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                        <Button Content="Criar backup manual" Style="{StaticResource BlockButton}"
+                                Click="BtnBackup_Click" Margin="0,0,8,0"/>
+                        <Button Content="Restaurar backup selecionado" Style="{StaticResource BlockButton}"
+                                Click="BtnRestoreSelected_Click" Margin="0,0,8,0"/>
+                        <Button Content="Atualizar lista" Style="{StaticResource BlockButton}"
+                                Click="BtnRefreshBackups_Click"/>
+                    </StackPanel>
+                    <ListBox x:Name="ListBackups" Grid.Row="1" Background="{StaticResource PanelDark}"
+                             Foreground="{StaticResource TextPrimary}" BorderBrush="{StaticResource BorderDim}"/>
+                </Grid>
+            </TabItem>
+
+            <!-- ANÁLISE DE COMPATIBILIDADE -->
+            <TabItem Header="Análise do seu Windows">
+                <ListBox x:Name="ListCompatibility" Margin="0,16,0,0" Background="{StaticResource PanelDark}"
+                         Foreground="{StaticResource TextPrimary}" BorderBrush="{StaticResource BorderDim}"/>
+            </TabItem>
+
+            <!-- HISTÓRICO -->
+            <TabItem Header="Histórico">
+                <ListBox x:Name="ListHistory" Margin="0,16,0,0" Background="{StaticResource PanelDark}"
+                         Foreground="{StaticResource TextPrimary}" BorderBrush="{StaticResource BorderDim}"/>
+            </TabItem>
+
+            <!-- CONFIGURAÇÕES -->
+            <TabItem x:Name="TabSettings" Header="Configurações">
+                <StackPanel Margin="0,16,0,0">
+                    <CheckBox x:Name="ChkRunOnStartup" Content="Iniciar com o Windows"
+                              Foreground="{StaticResource TextPrimary}" Margin="0,0,0,10"
+                              Checked="ChkRunOnStartup_Changed" Unchecked="ChkRunOnStartup_Changed"/>
+                    <CheckBox x:Name="ChkAutoBackup" Content="Criar backup automaticamente antes de aplicar o tema"
+                              Foreground="{StaticResource TextPrimary}" Margin="0,0,0,10" IsChecked="True"/>
+                    <CheckBox x:Name="ChkAppSounds" Content="Ativar sons do aplicativo"
+                              Foreground="{StaticResource TextPrimary}" Margin="0,0,0,10" IsChecked="True"/>
+                    <CheckBox x:Name="ChkAnimations" Content="Ativar animações"
+                              Foreground="{StaticResource TextPrimary}" Margin="0,0,0,10" IsChecked="True"/>
+                    <TextBlock Text="Idioma" Style="{StaticResource SectionHeader}" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="CmbLanguage" Width="220" HorizontalAlignment="Left">
+                        <ComboBoxItem Content="Português do Brasil" IsSelected="True"/>
+                        <ComboBoxItem Content="English"/>
+                    </ComboBox>
+                </StackPanel>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

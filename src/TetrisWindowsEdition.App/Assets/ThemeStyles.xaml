@@ -1,0 +1,92 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Paleta inspirada nas 7 peças de Tetris -->
+    <Color x:Key="ColorI">#00E5FF</Color>
+    <Color x:Key="ColorO">#FFD600</Color>
+    <Color x:Key="ColorT">#AA00FF</Color>
+    <Color x:Key="ColorS">#00E676</Color>
+    <Color x:Key="ColorZ">#FF1744</Color>
+    <Color x:Key="ColorJ">#2979FF</Color>
+    <Color x:Key="ColorL">#FF9100</Color>
+
+    <SolidColorBrush x:Key="BrushI" Color="{StaticResource ColorI}"/>
+    <SolidColorBrush x:Key="BrushO" Color="{StaticResource ColorO}"/>
+    <SolidColorBrush x:Key="BrushT" Color="{StaticResource ColorT}"/>
+    <SolidColorBrush x:Key="BrushS" Color="{StaticResource ColorS}"/>
+    <SolidColorBrush x:Key="BrushZ" Color="{StaticResource ColorZ}"/>
+    <SolidColorBrush x:Key="BrushJ" Color="{StaticResource ColorJ}"/>
+    <SolidColorBrush x:Key="BrushL" Color="{StaticResource ColorL}"/>
+
+    <SolidColorBrush x:Key="BackgroundDark" Color="#0B0F14"/>
+    <SolidColorBrush x:Key="PanelDark" Color="#141A21"/>
+    <SolidColorBrush x:Key="BorderDim" Color="#2A333D"/>
+    <SolidColorBrush x:Key="TextPrimary" Color="#E8EEF3"/>
+    <SolidColorBrush x:Key="TextSecondary" Color="#8A98A6"/>
+
+    <FontFamily x:Key="GameFont">Consolas</FontFamily>
+
+    <!-- Botão em forma de "bloco" com leve borda inspirada em peça encaixando -->
+    <Style x:Key="BlockButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PanelDark}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+        <Setter Property="FontFamily" Value="{StaticResource GameFont}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="16,10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderDim}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="2">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource BrushI}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource BorderDim}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.4"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PrimaryBlockButton" TargetType="Button" BasedOn="{StaticResource BlockButton}">
+        <Setter Property="Background" Value="{StaticResource BrushS}"/>
+        <Setter Property="Foreground" Value="#0B0F14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BrushS}"/>
+    </Style>
+
+    <Style x:Key="DangerBlockButton" TargetType="Button" BasedOn="{StaticResource BlockButton}">
+        <Setter Property="BorderBrush" Value="{StaticResource BrushZ}"/>
+        <Setter Property="Foreground" Value="{StaticResource BrushZ}"/>
+    </Style>
+
+    <Style x:Key="SectionHeader" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource GameFont}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+        <Setter Property="Margin" Value="0,0,0,12"/>
+    </Style>
+
+    <Style x:Key="StatusRow" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource GameFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+        <Setter Property="Margin" Value="0,2"/>
+    </Style>
+
+</ResourceDictionary>

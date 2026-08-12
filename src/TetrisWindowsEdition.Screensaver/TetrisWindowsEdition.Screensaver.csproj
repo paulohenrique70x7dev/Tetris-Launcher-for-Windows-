@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>TetrisWindowsEdition.Screensaver</AssemblyName>
+    <RootNamespace>TetrisWindowsEdition.Screensaver</RootNamespace>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <!--
+    Depois de compilar (dotnet publish -c Release -r win-x64),
+    renomeie TetrisWindowsEdition.Screensaver.exe para .scr
+    e copie para a pasta do app principal — é assim que o Windows
+    reconhece qualquer executável comum como protetor de tela.
+  -->
+
+</Project>
