@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <ImplicitUsings>enable</ImplicitUsings>
-  <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
@@ -28,9 +26,11 @@
   <ItemGroup>
     <Resource Include="Resources\Wallpapers\*.png" />
     <Resource Include="Resources\Icons\*.ico" />
+
     <None Include="Resources\Sounds\*.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+
     <None Include="Resources\Cursors\*.cur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
