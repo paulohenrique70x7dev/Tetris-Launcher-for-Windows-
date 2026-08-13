@@ -1,0 +1,38 @@
+name: Build Tetris Windows Edition
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish app principal
+        run: dotnet publish src/TetrisWindowsEdition.App/TetrisWindowsEdition.App.csproj -c Release -r win-x64 --self-contained false -o publish/App
+
+      - name: Publish protetor de tela
+        run: dotnet publish src/TetrisWindowsEdition.Screensaver/TetrisWindowsEdition.Screensaver.csproj -c Release -r win-x64 --self-contained false -o publish/Screensaver
+
+      - name: Renomear .exe do protetor de tela para .scr
+        shell: pwsh
+        run: |
+          Copy-Item "publish/Screensaver/TetrisWindowsEdition.Screensaver.exe" "publish/App/TetrisWindowsEdition.Screensaver.scr"
+
+      # A partir daqui é o ponto onde você pluga seu próprio passo de
+      # empacotamento/instalador (ex.: Inno Setup, MSIX, WiX) —
+      # este workflow só garante que os .exe saem prontos em publish/App.
+
+      - name: Upload artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: TetrisWindowsEdition-win-x64
+          path: publish/App
